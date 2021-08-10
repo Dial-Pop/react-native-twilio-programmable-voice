@@ -2,6 +2,7 @@
 #import <React/RCTEventEmitter.h>
 
 @interface RNTwilioVoice : RCTEventEmitter <RCTBridgeModule>
-    - (void)initPushRegistry;
-    - (void)configureCallKit: (NSDictionary *)params;
+    - (void) configCallKit: (NSDictionary *)params;
+    - (void) reRegisterWithTwilioVoice;
+    - (void) initPushRegistry;
 @end
