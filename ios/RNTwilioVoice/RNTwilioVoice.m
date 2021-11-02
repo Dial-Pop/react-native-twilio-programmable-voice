@@ -534,6 +534,11 @@ withCompletionHandler:(void (^)(void))completion {
 }
 
 - (void)callDisconnected:(TVOCall *)call error:(NSError *)error {
+  
+    NSLog(@"Disconnecting call. UUID %@", self.activeCall.uuid.UUIDString);
+    self.userInitiatedDisconnect = YES;
+    [self performEndCallActionWithUUID:self.activeCall.uuid];
+
     NSLog(@"callDisconnect");
     if ([call isEqual:self.activeCall]) {
         self.activeCall = nil;
@@ -561,7 +566,8 @@ withCompletionHandler:(void (^)(void))completion {
     }
     if (call.state == TVOCallStateDisconnected) {
         [params setObject:StateDisconnected forKey:@"call_state"];
-    }
+    }    
+
     [self sendEventWithName:@"connectionDidDisconnect" body:params];
 }
 
